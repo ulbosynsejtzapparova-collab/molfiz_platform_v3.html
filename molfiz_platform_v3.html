@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МолФиз Академия — 9 сынып</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #04080f;
+  --surface: #080e1c;
+  --card: #0c1525;
+  --border: rgba(255,255,255,0.06);
+  --kz: #00e5a0;
+  --ru: #ff6b35;
+  --accent: #7c3aed;
+  --accent2: #06b6d4;
+  --gold: #f59e0b;
+  --text: #f0f4ff;
+  --muted: #4a5568;
+  --danger: #ef4444;
+  --success: #10b981;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+#cursor {
+  width: 16px; height: 16px;
+  background: var(--kz);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: exclusion;
+}
+#cursor.big { width: 48px; height: 48px; }
+
+/* NOISE OVERLAY */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:1;
+  opacity:.4;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(4,8,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-mark {
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--kz), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+}
+
+.logo-sep { width:1px; height:32px; background:var(--border); }
+
+.logo-sub {
+  font-size: .78rem;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: .5px;
+}
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* LANG TOGGLE */
+.lang-toggle {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.lang-btn {
+  padding: 6px 18px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: all .25s;
+  background: transparent;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.lang-btn.kz.active { background: var(--kz); color: #000; }
+.lang-btn.ru.active { background: var(--ru); color: #fff; }
+
+.grade-badge {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 48px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,229,160,0.08);
+  border: 1px solid rgba(0,229,160,0.25);
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem;
+  color: var(--kz);
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+  animation: fadeDown .8s ease both;
+}
+
+.hero-eyebrow::before { content:'◈'; font-size:10px; }
+
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: .95;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+  animation: fadeUp .9s .1s ease both;
+}
+
+.hero h1 .line1 { display:block; color: var(--text); }
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(90deg, var(--kz), var(--accent2), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 48px;
+  animation: fadeUp .9s .2s ease both;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 52px;
+  animation: fadeUp .9s .3s ease both;
+}
+
+.hstat {
+  text-align: center;
+  padding: 0 36px;
+  border-right: 1px solid var(--border);
+}
+.hstat:last-child { border-right: none; }
+.hstat-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--kz), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.hstat-l { font-size: .75rem; color: var(--muted); margin-top: 6px; letter-spacing: 1px; }
+
+.scroll-hint {
+  animation: bounce 2s infinite, fadeUp .9s .5s ease both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.scroll-hint .arrow { font-size: 1.2rem; }
+
+@keyframes bounce {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(8px); }
+}
+
+/* ===== SECTION ===== */
+.section {
+  padding: 80px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem;
+  color: var(--kz);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+/* ===== LECTURE CARDS ===== */
+.lectures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+.lec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .3s ease, border-color .3s, box-shadow .3s;
+  position: relative;
+}
+
+.lec-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity .3s;
+  background: linear-gradient(135deg, var(--accent)08, var(--accent2)08);
+}
+
+.lec-card:hover {
+  transform: translateY(-8px) rotate(-.3deg);
+  border-color: rgba(0,229,160,.3);
+  box-shadow: 0 24px 80px rgba(0,229,160,.1);
+}
+.lec-card:hover::after { opacity: 1; }
+
+.card-thumb {
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-thumb canvas {
+  width: 100%; height: 100%;
+  display: block;
+}
+
+.card-num {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  opacity: .12;
+  line-height: 1;
+  color: #fff;
+  pointer-events: none;
+}
+
+.card-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.3);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.lec-card:hover .card-play { opacity: 1; }
+.play-ring {
+  width: 64px; height: 64px;
+  border: 2px solid rgba(255,255,255,.6);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,.1);
+  transition: all .2s;
+}
+.lec-card:hover .play-ring {
+  background: var(--kz);
+  border-color: var(--kz);
+  color: #000;
+}
+
+.card-status {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: .68rem;
+  font-family: 'Space Mono', monospace;
+}
+
+.card-body { padding: 20px; }
+
+.card-scientist {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sci-bubble {
+  font-size: 28px;
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.sci-info-name {
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--text);
+}
+.sci-info-disc { font-size: .72rem; color: var(--muted); }
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  letter-spacing: -.3px;
+}
+.card-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 14px;
+}
+
+.ctag {
+  font-size: .66rem;
+  font-family: 'Space Mono', monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: .5px;
+}
+
+/* ===== MODAL ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0,0,0,.95);
+  backdrop-filter: blur(16px);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+.overlay.on { display: flex; }
+
+.modal {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 28px;
+  overflow: hidden;
+  animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+  margin: auto;
+  position: relative;
+}
+
+@keyframes modalIn {
+  from { transform: scale(.92) translateY(30px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* MODAL HEADER */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,14,28,.9);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-lang-toggle {
+  display: flex;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 3px;
+  gap: 3px;
+}
+.mlang-btn {
+  padding: 5px 16px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  cursor: pointer;
+  transition: all .2s;
+  background: transparent;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.mlang-btn.kz.active { background: var(--kz); color: #000; }
+.mlang-btn.ru.active { background: var(--ru); color: #fff; }
+
+.modal-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-lec-num {
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+}
+
+.close-x {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.close-x:hover { background: var(--danger); border-color: var(--danger); }
+
+/* VIDEO AREA */
+.varea { padding: 24px 28px 0; }
+
+.vscreen {
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #000;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+#vc { width:100%; height:100%; display:block; }
+
+/* VIDEO CONTROLS */
+.vctrl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.vc-btn {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.vc-btn:hover, .vc-btn.on { background: var(--kz); border-color: var(--kz); color: #000; }
+
+.vbar {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,.08);
+  cursor: pointer;
+  position: relative;
+}
+.vfill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--kz), var(--accent2));
+  width: 0%;
+  transition: width .12s;
+}
+
+.vtime {
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.vol-wrap { display:flex; align-items:center; gap:6px; }
+.vol-sl {
+  width: 72px;
+  accent-color: var(--kz);
+  cursor: pointer;
+}
+
+/* SUBTITLE */
+.sub-panel {
+  background: rgba(0,0,0,.6);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+  padding: 14px 20px;
+  min-height: 58px;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.sub-lang-tag {
+  position: absolute;
+  top: -10px; left: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+/* WATCHED QUESTION */
+.watched-section {
+  margin: 20px 28px 0;
+  background: rgba(124,58,237,.07);
+  border: 1px solid rgba(124,58,237,.25);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  display: none;
+}
+
+.watched-section.show { display: block; }
+
+.watched-q {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.watched-sub { font-size: .85rem; color: var(--muted); margin-bottom: 24px; }
+
+.watched-btns { display: flex; gap: 14px; justify-content: center; }
+
+.wbtn {
+  padding: 14px 40px;
+  border-radius: 14px;
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all .25s;
+  letter-spacing: .5px;
+}
+
+.wbtn.yes {
+  background: linear-gradient(135deg, var(--success), #059669);
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(16,185,129,.3);
+}
+.wbtn.yes:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(16,185,129,.4); }
+
+.wbtn.no {
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.wbtn.no:hover { background: rgba(239,68,68,.15); border-color: var(--danger); color: var(--danger); }
+
+/* LECTURE TEXT (after YES) */
+.lecture-text-section {
+  padding: 0 28px 28px;
+  display: none;
+}
+.lecture-text-section.show { display: block; }
+
+.lts-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.lts-icon { font-size: 3rem; }
+
+.lts-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -.5px;
+}
+
+.lts-sub { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+
+.lts-body h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--kz);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lts-body h3::before { content: '▸'; color: var(--accent2); font-size: .8rem; }
+
+.lts-body p {
+  font-size: .9rem;
+  color: #94a3b8;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.formula-display {
+  background: rgba(0,0,0,.5);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin: 16px 0;
+  letter-spacing: 2px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.info-card {
+  background: rgba(6,182,212,.05);
+  border: 1px solid rgba(6,182,212,.15);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.ic-icon { font-size: 26px; margin-bottom: 6px; }
+.ic-val { font-size: 1rem; font-weight: 700; color: var(--accent2); }
+.ic-lbl { font-size: .7rem; color: var(--muted); margin-top: 2px; }
+
+.fun-box {
+  background: rgba(245,158,11,.06);
+  border: 1px solid rgba(245,158,11,.2);
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-size: .88rem;
+  color: #fcd34d;
+  line-height: 1.7;
+  margin-top: 16px;
+}
+.fun-box b { color: var(--gold); }
+
+.complete-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16,185,129,.08);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-top: 24px;
+  font-weight: 700;
+  color: var(--success);
+  font-size: .88rem;
+}
+
+/* ===== PROGRESS TRACKER ===== */
+.progress-section {
+  padding: 80px 48px;
+  background: linear-gradient(180deg, transparent, rgba(8,14,28,.8), transparent);
+}
+
+.progress-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.prog-grid {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.prog-item {
+  flex: 1;
+  min-width: 140px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: all .3s;
+}
+
+.prog-item.done {
+  border-color: rgba(0,229,160,.3);
+  background: rgba(0,229,160,.05);
+}
+
+.prog-icon { font-size: 2rem; margin-bottom: 10px; }
+.prog-name { font-size: .78rem; color: var(--muted); margin-bottom: 6px; }
+.prog-status {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+.prog-item.done .prog-status { background: rgba(0,229,160,.15); color: var(--kz); }
+.prog-item:not(.done) .prog-status { background: rgba(255,255,255,.05); color: var(--muted); }
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--kz), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-sub { font-size: .75rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-mark">МолФиз</div>
+  <div class="logo-sep"></div>
+  <div class="logo-sub">АКАДЕМИЯ / АКАДЕМИЯ</div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn kz active" onclick="setGlobalLang('kz')">ҚАЗ</button>
+      <button class="lang-btn ru" onclick="setGlobalLang('ru')">РУС</button>
+    </div>
+    <div class="grade-badge">9-СЫНЫП</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas class="hero-bg-canvas" id="heroBg"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="heroEyebrow">МОЛЕКУЛАЛЫҚ ФИЗИКА · 9 СЫНЫП</div>
+    <h1>
+      <span class="line1" id="heroLine1">МОЛЕКУЛАЛАР</span>
+      <span class="line2" id="heroLine2">СЫРЫН АШ</span>
+    </h1>
+    <p class="hero-sub" id="heroSub">Ұлы ғалымдар сізге молекулалық физиканы анимациямен, дыбыспен, екі тілде түсіндіреді. ЕҢ КҮШТІ оқу тәжірибесі.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" id="hs1">ЛЕКЦИЯ</div></div>
+      <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l" id="hs2">ТІЛ</div></div>
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" id="hs3">ҒАЛЫМ</div></div>
+      <div class="hstat"><div class="hstat-n">∞</div><div class="hstat-l" id="hs4">БІЛІМ</div></div>
+    </div>
+    <div class="scroll-hint" onclick="document.getElementById('lecturesSec').scrollIntoView({behavior:'smooth'})">
+      <span id="scrollTxt">ЛЕКЦИЯЛАРДЫ КӨР</span>
+      <span class="arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- LECTURES -->
+<section class="section" id="lecturesSec">
+  <div class="section-header">
+    <div>
+      <div class="section-label" id="secLabel">ЛЕКЦИЯЛАР</div>
+      <div class="section-title" id="secTitle">5 Тақырып — 5 Ғалым</div>
+    </div>
+  </div>
+  <div class="lectures-grid" id="lecturesGrid"></div>
+</section>
+
+<!-- PROGRESS -->
+<section class="progress-section">
+  <div class="progress-inner">
+    <div class="section-label" id="progLabel">ПРОГРЕСС</div>
+    <div class="section-title" id="progTitle">Сіздің жетістіктеріңіз</div>
+    <div class="prog-grid" id="progGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">МолФиз Академия</div>
+    <div class="footer-sub">9-СЫНЫП · МОЛЕКУЛАЛЫҚ ФИЗИКА</div>
+  </div>
+  <div class="footer-sub" id="footerTxt">© 2024 · ЖИ Сабағы жобасы · Барлық құқықтар қорғалған</div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title-area">
+        <div class="modal-lec-num" id="mLecNum">ЛЕКЦИЯ 01</div>
+        <div class="modal-lang-toggle">
+          <button class="mlang-btn kz active" id="mlKz" onclick="switchModalLang('kz')">ҚАЗ</button>
+          <button class="mlang-btn ru" id="mlRu" onclick="switchModalLang('ru')">РУС</button>
+        </div>
+      </div>
+      <button class="close-x" onclick="closeModal()">✕</button>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="varea">
+      <div class="vscreen"><canvas id="vc"></canvas></div>
+      <div class="vctrl">
+        <button class="vc-btn" id="ppBtn" onclick="togglePlay()">▶</button>
+        <button class="vc-btn" onclick="restartVid()" title="Қайтару">↺</button>
+        <div class="vbar" id="vbar" onclick="seekVid(event)"><div class="vfill" id="vfill"></div></div>
+        <div class="vtime" id="vtime">0:00 / 1:30</div>
+        <div class="vol-wrap">🔊<input type="range" class="vol-sl" id="volSl" min="0" max="1" step="0.05" value="0.9" oninput="setVol(this.value)"></div>
+      </div>
+      <div class="sub-panel" id="subPanel">
+        <span class="sub-lang-tag" id="subLangTag" style="background:var(--kz);color:#000">ҚАЗ</span>
+        ▶ Ойнатуды басыңыз...
+      </div>
+    </div>
+
+    <!-- WATCHED? -->
+    <div class="watched-section" id="watchedSec">
+      <div class="watched-q" id="wQ">Лекцияны көріп біттіңіз бе?</div>
+      <div class="watched-sub" id="wSub">Жауабыңызды белгілеңіз</div>
+      <div class="watched-btns">
+        <button class="wbtn yes" onclick="answerWatched(true)" id="wYes">✓ Ия, біттім</button>
+        <button class="wbtn no" onclick="answerWatched(false)" id="wNo">✕ Жоқ, қайта</button>
+      </div>
+    </div>
+
+    <!-- LECTURE FULL TEXT -->
+    <div class="lecture-text-section" id="lecTextSec"></div>
+  </div>
+</div>
+
+<script>
+// =========================================================
+// DATA
+// =========================================================
+const LECS = [
+{
+  id:1, emoji:'🧑‍🔬', c1:'#6c63ff', c2:'#00d4ff',
+  scientist:{kz:'Дж. Дж. Томсон', ru:'Дж. Дж. Томсон'},
+  discovery:{kz:'Электронды ашқан ғалым', ru:'Открыл электрон'},
+  year:'1897',
+  title:{kz:'Молекулалар мен Атомдар', ru:'Молекулы и Атомы'},
+  subtitle:{kz:'Заттың ең кіші бөлшектері', ru:'Мельчайшие частицы вещества'},
+  desc:{kz:'Кез келген зат молекулалардан тұрады!', ru:'Любое вещество состоит из молекул!'},
+  tags:{kz:['Атом','Молекула','Бөлшектер'], ru:['Атом','Молекула','Частицы']},
+  quote:{kz:'Мен электронды таптым — ал сіз молекуланы тануға дайынсыз ба?',
+         ru:'Я открыл электрон — а вы готовы познать молекулу?'},
+  script:{
+    kz:[
+      {t:0,  s:"Сәлеметсіздер ме! Мен Дж. Дж. Томсон — 1897 жылы электронды ашқан физикпін!", a:"wave"},
+      {t:6,  s:"Бүгін заттың ішкі құрылысын зерттейміз. Кез келген зат молекулалардан тұрады.", a:"explain"},
+      {t:13, s:"Молекула — заттың химиялық қасиеттерін сақтайтын ең кіші бөлшек.", a:"point"},
+      {t:20, s:"Мысалы, судың молекуласы — 2 сутек және 1 оттек атомынан тұрады: H₂O!", a:"formula"},
+      {t:28, s:"Атомдар өте кіші! Бір молекула шамамен 10 минус 10-ші дәрежелі метр ғана.", a:"explain"},
+      {t:36, s:"Адам денесінде жеті жетіден кейін 27 нөл бар атом бар! Таңқаларлық емес пе?", a:"shock"},
+      {t:44, s:"Негізгі формула: N тең m бөлінген M-ге, сонан соң Авогадро санына көбейтіледі.", a:"formula"},
+      {t:52, s:"Авогадро саны: алты жетіден кейін 23 нөл! Бір молдегі молекулалар саны.", a:"explain"},
+      {t:60, s:"Қызықты факт: егер алма молекула болса, нақты алма Жер шарындай үлкен болар еді!", a:"fun"},
+      {t:70, s:"Молекулалар мен атомдарды меңгердіңіз! Физика — таңғажайып ғылым. Рахмет!", a:"bye"},
+    ],
+    ru:[
+      {t:0,  s:"Добрый день! Я Дж. Дж. Томсон — физик, открывший электрон в 1897 году!", a:"wave"},
+      {t:6,  s:"Сегодня изучаем внутреннее строение вещества. Любое вещество состоит из молекул.", a:"explain"},
+      {t:13, s:"Молекула — наименьшая частица вещества, сохраняющая его химические свойства.", a:"point"},
+      {t:20, s:"Например, молекула воды состоит из 2 атомов водорода и 1 атома кислорода: H₂O!", a:"formula"},
+      {t:28, s:"Атомы очень маленькие! Размер молекулы около 10 в минус 10-й степени метра.", a:"explain"},
+      {t:36, s:"В теле человека 7 на 10 в степени 27 атомов! Это поразительно, не правда ли?", a:"shock"},
+      {t:44, s:"Основная формула: N равно m делить на M, умноженное на число Авогадро.", a:"formula"},
+      {t:52, s:"Число Авогадро: 6 умножить на 10 в 23-й степени молекул в одном моле вещества.", a:"explain"},
+      {t:60, s:"Интересный факт: если бы яблоко было молекулой, настоящее яблоко было бы размером с Землю!", a:"fun"},
+      {t:70, s:"Вы освоили молекулы и атомы! Физика — удивительная наука. Спасибо!", a:"bye"},
+    ]
+  },
+  facts:[
+    {icon:"🔬",lbl:{kz:"Молекула өлшемі",ru:"Размер молекулы"},val:"10⁻¹⁰ м"},
+    {icon:"💧",lbl:{kz:"Су формуласы",ru:"Формула воды"},val:"H₂O"},
+    {icon:"⚗️",lbl:{kz:"Атом өлшемі",ru:"Размер атома"},val:"~1 Å"},
+    {icon:"🌌",lbl:{kz:"Адамдағы атом",ru:"Атомов в человеке"},val:"7×10²⁷"}
+  ],
+  formula:"N = (m / M) × Nₐ",
+  funfact:{kz:"Егер алма молекула болса — нақты алма Жер шарындай үлкен болар еді! Молекулалар қаншалықты кіші екенін елестете аласыз ба?",
+           ru:"Если бы яблоко было молекулой — настоящее яблоко было бы размером с Землю! Можете представить, насколько малы молекулы?"},
+  fulltext:{
+    kz:`<h3>Молекула деген не?</h3>
+<p>Молекула — заттың химиялық қасиеттерін сақтайтын ең кіші бөлшек. Молекулаларды жаңа кіші бөлшектерге бөлсек, зат өз қасиетін жоғалтады.</p>
+<p>Мысалы, су молекуласы H₂O. Бұл молекуланы бөлсек — сутек H₂ және оттек O₂ газдары пайда болады. Ал олар су емес!</p>
+
+<h3>Атом деген не?</h3>
+<p>Атом — молекуланың бөлшектерге бөлінген кіші бірліктері. Кез келген зат атомдардан тұрады. Атомдардың 118 түрі (элемент) бар — олар периодтық жүйеде орналасқан.</p>
+<p>Атом өте кіші: оның өлшемі шамамен 1 ангстрем, яғни 10⁻¹⁰ метр. Бір шаш талшығының қалыңдығы 500 000 атомға тең!</p>
+
+<h3>Авогадро саны</h3>
+<p>1 моль затта Авогадро санына тең молекула болады: Nₐ = 6,022 × 10²³. Бұл орасан зор сан!</p>
+<div class="formula-display">N = (m / M) × Nₐ</div>
+<p>Мұнда: N — молекулалар саны, m — заттың массасы (г), M — молярлық масса (г/моль), Nₐ — Авогадро саны.</p>
+
+<h3>Есептеу мысалы</h3>
+<p>18 грамм суда неше молекула бар?<br>
+Судың молярлық массасы M = 18 г/моль<br>
+N = (18/18) × 6,022×10²³ = 6,022×10²³ молекула</p>`,
+
+    ru:`<h3>Что такое молекула?</h3>
+<p>Молекула — наименьшая частица вещества, сохраняющая его химические свойства. Если молекулу разделить на меньшие части, вещество потеряет свои свойства.</p>
+<p>Например, молекула воды H₂O. Если разделить эту молекулу — получатся газы водород H₂ и кислород O₂. А они уже не вода!</p>
+
+<h3>Что такое атом?</h3>
+<p>Атом — мельчайшая единица, из которых состоят молекулы. Любое вещество состоит из атомов. Существует 118 видов атомов (элементов) — они расположены в периодической таблице.</p>
+<p>Атом очень мал: его размер примерно 1 ангстрем, то есть 10⁻¹⁰ метра. Толщина одного волоса равна 500 000 атомам!</p>
+
+<h3>Число Авогадро</h3>
+<p>В 1 моле вещества содержится число молекул, равное числу Авогадро: Nₐ = 6,022 × 10²³. Это огромное число!</p>
+<div class="formula-display">N = (m / M) × Nₐ</div>
+<p>Здесь: N — количество молекул, m — масса вещества (г), M — молярная масса (г/моль), Nₐ — число Авогадро.</p>
+
+<h3>Пример вычисления</h3>
+<p>Сколько молекул содержится в 18 граммах воды?<br>
+Молярная масса воды M = 18 г/моль<br>
+N = (18/18) × 6,022×10²³ = 6,022×10²³ молекул</p>`
+  }
+},
+{
+  id:2, emoji:'🧔', c1:'#ff6b6b', c2:'#fbbf24',
+  scientist:{kz:'Роберт Броун', ru:'Роберт Броун'},
+  discovery:{kz:'Броун қозғалысын ашты', ru:'Открыл броуновское движение'},
+  year:'1827',
+  title:{kz:'Броун Қозғалысы', ru:'Броуновское Движение'},
+  subtitle:{kz:'Молекулалардың үздіксіз қозғалысы', ru:'Непрерывное движение молекул'},
+  desc:{kz:'Тозаң судың ішінде неге қозғалады?', ru:'Почему пыль движется в воде?'},
+  tags:{kz:['Қозғалыс','Диффузия','Жылу'], ru:['Движение','Диффузия','Тепло']},
+  quote:{kz:'Тозаң бөлшектері тынбай қозғалды — бұл өмір белгісі емес, молекулалар!',
+         ru:'Пылинки двигались беспрерывно — это не жизнь, это молекулы!'},
+  script:{
+    kz:[
+      {t:0,  s:"Сәлем! Мен ботаник Роберт Броун. 1827 жылы керемет жаңалық аштым!", a:"wave"},
+      {t:6,  s:"Микроскоппен гүл тозаңын бақылаған кезде, тозаң үздіксіз хаотикалық қозғалды!", a:"shock"},
+      {t:14, s:"Алдымен тозаң тірі деп ойладым. Бірақ жоқ — бұл молекулалардың соққысы!", a:"explain"},
+      {t:22, s:"Сұйық молекулалары өте жылдам қозғалып, тозаңға бірде оңнан, бірде солдан соғады.", a:"point"},
+      {t:30, s:"Температура жоғарылаған сайын молекулалар жылдам қозғалады — Броун қозғалысы белсендіреді.", a:"explain"},
+      {t:38, s:"Диффузия деген не? Молекулалардың өздігінен таралуы. Иіс осылай тарайды!", a:"fun"},
+      {t:46, s:"Броун қозғалысының формуласы: x квадрат орташасы тең 2 Д т.", a:"formula"},
+      {t:54, s:"Мұнда Д — диффузия коэффициенті, t — уақыт, x — орын ауыстыру.", a:"explain"},
+      {t:62, s:"Броун қозғалысы молекулалардың шынымен бар екенін ғылыми дәлелдеді!", a:"shock"},
+      {t:70, s:"Керемет! Молекулалар сізді қоршап тұр — ал олар үнемі қозғалыста. Рахмет!", a:"bye"},
+    ],
+    ru:[
+      {t:0,  s:"Привет! Я ботаник Роберт Броун. В 1827 году я сделал удивительное открытие!", a:"wave"},
+      {t:6,  s:"Наблюдая в микроскоп за пыльцой цветка, я увидел непрерывное хаотическое движение!", a:"shock"},
+      {t:14, s:"Сначала думал — пыльца живая. Но нет — это удары молекул жидкости!", a:"explain"},
+      {t:22, s:"Молекулы жидкости быстро движутся и ударяют пылинку то справа, то слева.", a:"point"},
+      {t:30, s:"Чем выше температура — тем быстрее молекулы, тем активнее броуновское движение.", a:"explain"},
+      {t:38, s:"Диффузия — это самопроизвольное перемешивание молекул. Так распространяется запах!", a:"fun"},
+      {t:46, s:"Формула броуновского движения: среднее x квадрат равно 2 D t.", a:"formula"},
+      {t:54, s:"Здесь D — коэффициент диффузии, t — время, x — перемещение.", a:"explain"},
+      {t:62, s:"Броуновское движение научно доказало реальное существование молекул!", a:"shock"},
+      {t:70, s:"Молекулы окружают вас повсюду — и они всегда в движении. Спасибо!", a:"bye"},
+    ]
+  },
+  facts:[
+    {icon:"🌡️",lbl:{kz:"Температура артса",ru:"При повышении Т"},val:"Жылдам / Быстрее"},
+    {icon:"📏",lbl:{kz:"Кіші бөлшек",ru:"Меньше частица"},val:"Белсенді / Активнее"},
+    {icon:"💨",lbl:{kz:"Диффузия",ru:"Диффузия"},val:"мм/с"},
+    {icon:"⚡",lbl:{kz:"Молекула жылдамдығы",ru:"Скорость молекул"},val:"~500 м/с"}
+  ],
+  formula:"⟨x²⟩ = 2Dt",
+  funfact:{kz:"Хош иіс молекулалары диффузия арқылы таралады. Сондықтан гүлдің иісін метрлер алыстан сеземіз! Диффузия газда сұйықтыққа қарағанда мыңдаған есе жылдам жүреді.",
+           ru:"Молекулы запаха распространяются путём диффузии. Поэтому мы чувствуем запах цветка на расстоянии метров! Диффузия в газах в тысячи раз быстрее, чем в жидкостях."},
+  fulltext:{
+    kz:`<h3>Броун қозғалысы дегеніміз не?</h3>
+<p>Броун қозғалысы — сұйықтық немесе газ ішіндегі кіші бөлшектердің үздіксіз, хаотикалық қозғалысы. Бұл қозғалыс молекулалардың соққысынан туындайды.</p>
+<p>1827 жылы ботаник Роберт Броун микроскоппен гүл тозаңын бақылаған кезде осы қозғалысты байқаған. Бұл молекулалардың шынымен бар екенін дәлелдеді!</p>
+
+<h3>Диффузия</h3>
+<p>Диффузия — молекулалардың өздігінен жоғары концентрациялы жерден төмен концентрациялы жерге қарай таралуы.</p>
+<p>Мысалдар: иіс суының тарауы, шай суда ерігенде боялуы, газдардың араласуы.</p>
+
+<h3>Негізгі формула</h3>
+<div class="formula-display">⟨x²⟩ = 2Dt</div>
+<p>Мұнда: x² — орын ауыстырудың орташа квадраты (м²), D — диффузия коэффициенті (м²/с), t — уақыт (с).</p>
+
+<h3>Температура мен броун қозғалысы</h3>
+<p>Температура артқан сайын молекулалар жылдам қозғалады. Демек, Броун қозғалысы да белсендіреді. Суық суда тозаң баяу, ыстық суда жылдам қозғалады.</p>`,
+
+    ru:`<h3>Что такое броуновское движение?</h3>
+<p>Броуновское движение — непрерывное хаотическое движение мелких частиц в жидкости или газе под действием ударов молекул среды.</p>
+<p>В 1827 году ботаник Роберт Броун, наблюдая в микроскоп за пыльцой цветка, заметил это движение. Это доказало реальное существование молекул!</p>
+
+<h3>Диффузия</h3>
+<p>Диффузия — самопроизвольное перемешивание молекул из области высокой концентрации в область низкой концентрации.</p>
+<p>Примеры: распространение запаха духов, окрашивание воды чаем, смешивание газов.</p>
+
+<h3>Основная формула</h3>
+<div class="formula-display">⟨x²⟩ = 2Dt</div>
+<p>Здесь: x² — среднеквадратичное смещение (м²), D — коэффициент диффузии (м²/с), t — время (с).</p>
+
+<h3>Температура и броуновское движение</h3>
+<p>Чем выше температура, тем быстрее движутся молекулы. Следовательно, броуновское движение усиливается. В холодной воде пылинка движется медленнее, в горячей — быстрее.</p>`
+  }
+},
+{
+  id:3, emoji:'🎓', c1:'#10b981', c2:'#06b6d4',
+  scientist:{kz:'Людвиг Больцман', ru:'Людвиг Больцман'},
+  discovery:{kz:'Статистикалық механика', ru:'Статистическая механика'},
+  year:'1872',
+  title:{kz:'Молекулярлы-Кинетикалық Теория', ru:'МКТ Газов'},
+  subtitle:{kz:'Газ қысымы қайдан шығады?', ru:'Откуда берётся давление газа?'},
+  desc:{kz:'Газ молекулалары соғылып — қысым туғызады!', ru:'Молекулы газа создают давление ударами!'},
+  tags:{kz:['Газ','Қысым','Температура'], ru:['Газ','Давление','Температура']},
+  quote:{kz:'Температура — молекулалардың орташа кинетикалық энергиясы!',
+         ru:'Температура — это средняя кинетическая энергия молекул!'},
+  script:{
+    kz:[
+      {t:0,  s:"Сәлем! Мен Людвиг Больцман. Термодинамиканы статистикасыз түсіну мүмкін емес!", a:"wave"},
+      {t:7,  s:"Газ молекулалары ыдыс қабырғаларына соғылады — осы соққылардан қысым туындайды.", a:"explain"},
+      {t:15, s:"Мен дәлелдедім: температура молекулалардың орташа кинетикалық энергиясы.", a:"point"},
+      {t:23, s:"Яғни ыстық болған сайын молекулалар жылдам қозғалады, ал қысым артады!", a:"explain"},
+      {t:31, s:"Кинетикалық энергия формуласы: Е к тең үш екіден к Т.", a:"formula"},
+      {t:39, s:"Мұнда к — Больцман тұрақтысы: 1,38 × 10 минус 23 дәреже джоуль кельвин-ге.", a:"explain"},
+      {t:47, s:"Газ қысымы формуласы: р тең n к Т. n — молекулалар тығыздығы, Т — температура.", a:"formula"},
+      {t:56, s:"Авогадро санын — 6 жетіден кейін 23 нөл — есте сақтаңыз! Маңызды сан.", a:"shock"},
+      {t:64, s:"Шарды үрлесек, ішіндегі молекулалар қабырғаны итереді. Осы итерме — қысым!", a:"fun"},
+      {t:72, s:"МКТ — заманауи физиканың іргетасы. Сізбен бірге оқудан қуаныштымын!", a:"bye"},
+    ],
+    ru:[
+      {t:0,  s:"Привет! Я Людвиг Больцман. Термодинамику нельзя понять без статистики!", a:"wave"},
+      {t:7,  s:"Молекулы газа ударяются о стенки сосуда — из этих ударов и возникает давление.", a:"explain"},
+      {t:15, s:"Я доказал: температура — это средняя кинетическая энергия молекул.", a:"point"},
+      {t:23, s:"То есть чем горячее — тем быстрее молекулы, тем больше давление!", a:"explain"},
+      {t:31, s:"Формула кинетической энергии: E к равно три вторых k T.", a:"formula"},
+      {t:39, s:"Здесь k — постоянная Больцмана: 1,38 × 10 в минус 23 степени Дж/К.", a:"explain"},
+      {t:47, s:"Формула давления газа: p равно n k T. n — концентрация молекул, T — температура.", a:"formula"},
+      {t:56, s:"Число Авогадро — 6 на 10 в 23-й степени — запомните! Важная константа.", a:"shock"},
+      {t:64, s:"Когда надуваем шарик, молекулы внутри толкают стенки. Это и есть давление!", a:"fun"},
+      {t:72, s:"МКТ — основа современной физики. Рад учиться вместе с вами!", a:"bye"},
+    ]
+  },
+  facts:[
+    {icon:"💨",lbl:{kz:"1 моль молекула",ru:"Молекул в 1 моль"},val:"6×10²³"},
+    {icon:"🌡️",lbl:{kz:"0°C жылдамдық",ru:"Скорость при 0°C"},val:"~500 м/с"},
+    {icon:"📐",lbl:{kz:"Қысым формуласы",ru:"Формула давления"},val:"p = nkT"},
+    {icon:"⚡",lbl:{kz:"Больцман тұрақтысы",ru:"Пост. Больцмана"},val:"1,38×10⁻²³ Дж/К"}
+  ],
+  formula:"Eₖ = ³⁄₂ · k · T",
+  funfact:{kz:"Шарды үрлегенде ішіндегі молекулалар қабырғаны секундына миллиардтаған рет соғады! Осы соққылардың жиынтығы — жалпы қысым. Физика мен инженерия осыған сүйенеді.",
+           ru:"Когда надуваем шарик, молекулы ударяют стенки миллиарды раз в секунду! Сумма этих ударов — это и есть общее давление. На этом основаны физика и инженерия."},
+  fulltext:{
+    kz:`<h3>МКТ негізгі қағидалары</h3>
+<p>Молекулярлы-кинетикалық теория (МКТ) үш негізгі идеяға сүйенеді: зат молекулалардан тұрады, молекулалар үздіксіз қозғалыста, молекулалар бір-бірімен және қабырғамен соқтығысады.</p>
+
+<h3>Газ қысымы</h3>
+<p>Газ молекулалары ыдыс қабырғаларына соғылып қысым туғызады. Молекула саны көп болса немесе жылдам қозғалса — қысым артады.</p>
+<div class="formula-display">p = nkT</div>
+<p>Мұнда: p — қысым (Па), n — молекулалар концентрациясы (1/м³), k — Больцман тұрақтысы, T — температура (К).</p>
+
+<h3>Температура мен энергия</h3>
+<p>Температура молекулалардың орташа кинетикалық энергиясымен тікелей байланысты:</p>
+<div class="formula-display">Eₖ = ³⁄₂ · k · T</div>
+<p>Мұнда: Eₖ — орташа кинетикалық энергия (Дж), k — Больцман тұрақтысы = 1,38×10⁻²³ Дж/К, T — температура кельвинде.</p>
+
+<h3>Молекулалардың орташа жылдамдығы</h3>
+<p>Газ молекулаларының орташа квадраттық жылдамдығы: v² = 3kT/m. 0°C кезінде ауа молекулалары шамамен 500 м/с жылдамдықпен қозғалады!</p>`,
+
+    ru:`<h3>Основные положения МКТ</h3>
+<p>Молекулярно-кинетическая теория (МКТ) основана на трёх идеях: вещество состоит из молекул, молекулы непрерывно движутся, молекулы взаимодействуют друг с другом и со стенками.</p>
+
+<h3>Давление газа</h3>
+<p>Молекулы газа ударяют о стенки сосуда и создают давление. Чем больше молекул или чем быстрее они движутся — тем выше давление.</p>
+<div class="formula-display">p = nkT</div>
+<p>Здесь: p — давление (Па), n — концентрация молекул (1/м³), k — постоянная Больцмана, T — температура (К).</p>
+
+<h3>Температура и энергия</h3>
+<p>Температура напрямую связана со средней кинетической энергией молекул:</p>
+<div class="formula-display">Eₖ = ³⁄₂ · k · T</div>
+<p>Здесь: Eₖ — средняя кинетическая энергия (Дж), k — постоянная Больцмана = 1,38×10⁻²³ Дж/К, T — температура в кельвинах.</p>
+
+<h3>Средняя скорость молекул</h3>
+<p>Среднеквадратичная скорость молекул газа: v² = 3kT/m. При 0°C молекулы воздуха движутся со скоростью около 500 м/с!</p>`
+  }
+},
+{
+  id:4, emoji:'🧑‍🔬', c1:'#8b5cf6', c2:'#ec4899',
+  scientist:{kz:'Роберт Бойль', ru:'Роберт Бойль'},
+  discovery:{kz:'Бойль-Мариотт заңы', ru:'Закон Бойля-Мариотта'},
+  year:'1662',
+  title:{kz:'Газ Заңдары', ru:'Законы Газов'},
+  subtitle:{kz:'Бойль · Шарль · Гей-Люссак', ru:'Бойль · Шарль · Гей-Люссак'},
+  desc:{kz:'Газды қысқанда, қыздырғанда не болады?', ru:'Что происходит при сжатии и нагреве газа?'},
+  tags:{kz:['Газ заңы','Қысым','Көлем'], ru:['Закон газа','Давление','Объём']},
+  quote:{kz:'Газдың қысымы мен көлемі — бірін-бірі теңестіреді!',
+         ru:'Давление и объём газа уравновешивают друг друга!'},
+  script:{
+    kz:[
+      {t:0,  s:"Сәлем! Мен Роберт Бойль. 1662 жылы газдың маңызды заңын аштым!", a:"wave"},
+      {t:7,  s:"Бойль заңы: температура тұрақты болса, газ қысымы мен көлемінің көбейтіндісі тұрақты.", a:"explain"},
+      {t:16, s:"Яғни газды қысқанда — көлем кішірейеді, қысым артады. P V тең тұрақты!", a:"point"},
+      {t:24, s:"Шарль заңы: қысым тұрақты болса, газ көлемі температурамен бірге артады.", a:"explain"},
+      {t:32, s:"Гей-Люссак заңы: көлем тұрақты болса, қысым температурамен бірге артады.", a:"explain"},
+      {t:40, s:"Барлық үш заңды біріктірсек: PV бөлінген T тең тұрақты. Бұл идеал газ заңы!", a:"formula"},
+      {t:49, s:"Жалпы газ теңдеуі: P V тең ню R T. Мұнда R — универсал газ тұрақтысы 8,31.", a:"formula"},
+      {t:58, s:"Абсолют нөл — минус 273 градус Цельсий. Бұл температурада молекулалар тоқтайды!", a:"shock"},
+      {t:66, s:"Ыстық ауа шары Шарль заңына сүйенеді — ауаны қыздырса, шар ұшады!", a:"fun"},
+      {t:74, s:"Газ заңдарын меңгердіңіз! Бұл заңдар физикада, химияда, инженерияда керек.", a:"bye"},
+    ],
+    ru:[
+      {t:0,  s:"Привет! Я Роберт Бойль. В 1662 году я открыл важный закон о газе!", a:"wave"},
+      {t:7,  s:"Закон Бойля: при постоянной температуре произведение давления и объёма газа постоянно.", a:"explain"},
+      {t:16, s:"То есть при сжатии — объём уменьшается, давление растёт. PV равно const!", a:"point"},
+      {t:24, s:"Закон Шарля: при постоянном давлении объём газа прямо пропорционален температуре.", a:"explain"},
+      {t:32, s:"Закон Гей-Люссака: при постоянном объёме давление растёт пропорционально температуре.", a:"explain"},
+      {t:40, s:"Объединяя все три закона: PV делить на T равно const. Это закон идеального газа!", a:"formula"},
+      {t:49, s:"Уравнение идеального газа: P V равно ню R T. R — универсальная газовая постоянная, 8,31.", a:"formula"},
+      {t:58, s:"Абсолютный ноль — минус 273 градуса Цельсия. При этой температуре молекулы останавливаются!", a:"shock"},
+      {t:66, s:"Воздушный шар работает по закону Шарля — нагреваем воздух, шар поднимается!", a:"fun"},
+      {t:74, s:"Вы освоили законы газа! Эти законы нужны в физике, химии, инженерии.", a:"bye"},
+    ]
+  },
+  facts:[
+    {icon:"🔽",lbl:{kz:"Қысқанда",ru:"При сжатии"},val:"p↑, V↓"},
+    {icon:"🔺",lbl:{kz:"Қыздырғанда",ru:"При нагреве"},val:"V↑, p↑"},
+    {icon:"🌡️",lbl:{kz:"Абсолют нөл",ru:"Абсолютный ноль"},val:"-273,15°C"},
+    {icon:"📐",lbl:{kz:"Газ заңы",ru:"Закон газа"},val:"pV/T = const"}
+  ],
+  formula:"pV = νRT",
+  funfact:{kz:"Ыстық ауа шары Шарль заңына сүйенеді! Ішіндегі ауаны горелкамен қыздырса — молекулалар жылдам қозғалып, ауа кеңейеді де шар көтеріледі. Физика ұшады!",
+           ru:"Воздушный шар работает по закону Шарля! Горелка нагревает воздух — молекулы ускоряются, воздух расширяется и шар взлетает. Физика летит!"},
+  fulltext:{
+    kz:`<h3>Бойль-Мариотт заңы</h3>
+<p>Температура тұрақты болғанда (изотермиялық процесс), газдың қысымы мен көлемінің көбейтіндісі тұрақты болады:</p>
+<div class="formula-display">p₁V₁ = p₂V₂ = const</div>
+<p>Мысал: шприцтің поршенін басқанда, ішіндегі ауаның қысымы артады, көлемі кішірейеді.</p>
+
+<h3>Шарль заңы</h3>
+<p>Қысым тұрақты болғанда (изобаралық процесс), газ көлемі температураға тура пропорционал:</p>
+<div class="formula-display">V₁/T₁ = V₂/T₂ = const</div>
+
+<h3>Гей-Люссак заңы</h3>
+<p>Көлем тұрақты болғанда (изохоралық процесс), газ қысымы температураға тура пропорционал:</p>
+<div class="formula-display">p₁/T₁ = p₂/T₂ = const</div>
+
+<h3>Жалпы газ теңдеуі (Менделеев-Клапейрон)</h3>
+<div class="formula-display">pV = νRT</div>
+<p>Мұнда: p — қысым (Па), V — көлем (м³), ν — моль саны (моль), R = 8,31 Дж/(моль·К), T — температура (К).</p>
+<p><b>Абсолют нөл:</b> T = 0 К = -273,15°C. Бұл температурада молекулалардың хаотикалық қозғалысы тоқтайды.</p>`,
+
+    ru:`<h3>Закон Бойля-Мариотта</h3>
+<p>При постоянной температуре (изотермический процесс) произведение давления и объёма газа постоянно:</p>
+<div class="formula-display">p₁V₁ = p₂V₂ = const</div>
+<p>Пример: нажимая поршень шприца, мы сжимаем воздух — объём уменьшается, давление растёт.</p>
+
+<h3>Закон Шарля</h3>
+<p>При постоянном давлении (изобарный процесс) объём газа прямо пропорционален температуре:</p>
+<div class="formula-display">V₁/T₁ = V₂/T₂ = const</div>
+
+<h3>Закон Гей-Люссака</h3>
+<p>При постоянном объёме (изохорный процесс) давление газа прямо пропорционально температуре:</p>
+<div class="formula-display">p₁/T₁ = p₂/T₂ = const</div>
+
+<h3>Уравнение идеального газа (Менделеева-Клапейрона)</h3>
+<div class="formula-display">pV = νRT</div>
+<p>Здесь: p — давление (Па), V — объём (м³), ν — количество моль, R = 8,31 Дж/(моль·К), T — температура (К).</p>
+<p><b>Абсолютный ноль:</b> T = 0 К = -273,15°C. При этой температуре хаотическое движение молекул прекращается.</p>`
+  }
+},
+{
+  id:5, emoji:'👨‍🏫', c1:'#f59e0b', c2:'#ef4444',
+  scientist:{kz:'Йоханнес ван дер Ваальс', ru:'Йоханнес ван дер Ваальс'},
+  discovery:{kz:'Ван дер Ваальс теңдеуі', ru:'Уравнение ван-дер-Ваальса'},
+  year:'1873',
+  title:{kz:'Фазалық Өтулер', ru:'Фазовые Переходы'},
+  subtitle:{kz:'Балқу · Кристалдану · Буланд', ru:'Плавление · Кристаллизация · Испарение'},
+  desc:{kz:'Мұз қалай суға, су қалай буға айналады?', ru:'Как лёд превращается в воду, а вода в пар?'},
+  tags:{kz:['Фаза','Балқу','Буланд'], ru:['Фаза','Плавление','Испарение']},
+  quote:{kz:'Газ бен сұйықтықтың арасында нақты шекара жоқ!',
+         ru:'Между газом и жидкостью нет чёткой границы!'},
+  script:{
+    kz:[
+      {t:0,  s:"Сәлем! Мен Йоханнес ван дер Ваальс. 1910 жылы Нобель сыйлығын алдым!", a:"wave"},
+      {t:7,  s:"Бүгін зат фазалары туралы сөйлесеміз: қатты, сұйық, газ — үш күй.", a:"explain"},
+      {t:15, s:"Мұз — қатты фаза. Молекулалар тығыз орналасып, тербеледі ғана.", a:"point"},
+      {t:23, s:"Мұзды қыздырсақ — 0 градуста балқиды. Молекулалар еркін қозғала бастайды.", a:"explain"},
+      {t:31, s:"100 градуста су қайнайды — молекулалар ыдыстан шығып, бу болады!", a:"explain"},
+      {t:39, s:"Балқу үшін жылу керек: мұздың балқу жылуы 334 килоджоуль килограмм үшін.", a:"formula"},
+      {t:47, s:"Булану жылуы одан да көп: 2260 килоджоуль. Сондықтан су қайнату баяу.", a:"formula"},
+      {t:55, s:"Менің теңдеуім нақты газдар үшін: р плюс а V квадрат, V минус b, тең RT.", a:"formula"},
+      {t:64, s:"Ас пісіргенде жылу молекулаларды бір-бірінен ажыратуға жұмсалады — физика!", a:"fun"},
+      {t:72, s:"Фазалық өтулер — физиканың ең қызықты бөлімі! Оқуды жалғастырыңыз!", a:"bye"},
+    ],
+    ru:[
+      {t:0,  s:"Привет! Я Йоханнес ван дер Ваальс. В 1910 году получил Нобелевскую премию!", a:"wave"},
+      {t:7,  s:"Сегодня говорим о фазах вещества: твёрдое, жидкое, газ — три состояния.", a:"explain"},
+      {t:15, s:"Лёд — твёрдая фаза. Молекулы расположены плотно и только колеблются.", a:"point"},
+      {t:23, s:"Нагреваем лёд — при 0 градусах он тает. Молекулы начинают свободно двигаться.", a:"explain"},
+      {t:31, s:"При 100 градусах вода кипит — молекулы вырываются из сосуда, становятся паром!", a:"explain"},
+      {t:39, s:"Для плавления нужна теплота: удельная теплота плавления льда 334 кДж на кг.", a:"formula"},
+      {t:47, s:"Теплота испарения ещё больше: 2260 кДж на кг. Поэтому вода закипает медленно.", a:"formula"},
+      {t:55, s:"Моё уравнение для реальных газов: p плюс а на V², умноженное на V минус b, равно RT.", a:"formula"},
+      {t:64, s:"При приготовлении пищи тепло тратится на разделение молекул — это физика!", a:"fun"},
+      {t:72, s:"Фазовые переходы — один из интереснейших разделов физики! Продолжайте учиться!", a:"bye"},
+    ]
+  },
+  facts:[
+    {icon:"🧊",lbl:{kz:"Мұз балқу t°",ru:"Температура плавления"},val:"0°C"},
+    {icon:"💧",lbl:{kz:"Су қайнау t°",ru:"Температура кипения"},val:"100°C"},
+    {icon:"🔥",lbl:{kz:"Булану жылуы",ru:"Теплота испарения"},val:"2260 кДж/кг"},
+    {icon:"❄️",lbl:{kz:"Балқу жылуы",ru:"Теплота плавления"},val:"334 кДж/кг"}
+  ],
+  formula:"(p + a/V²)(V − b) = RT",
+  funfact:{kz:"Ас пісіргенде суды қайнату үшін мол энергия кетеді — молекулаларды бір-бірінен ажыратуға. Сондықтан қысқышта пісіру тезірек: жоғары қысымда қайнау температурасы 120°C-ге жетеді!",
+           ru:"При приготовлении пищи уходит много энергии на кипение воды — чтобы разорвать связи молекул. Поэтому в скороварке быстрее: при высоком давлении температура кипения достигает 120°C!"},
+  fulltext:{
+    kz:`<h3>Заттың күйлері</h3>
+<p>Зат үш фазада болады: қатты, сұйық, газ. Әр фазада молекулалардың орналасуы мен қозғалысы ерекше.</p>
+<p>Қатты заттарда молекулалар тығыз орналасып, тек тербеледі. Сұйықтарда еркін қозғалады бірақ тұтастығын сақтайды. Газдарда толықтай еркін қозғалады.</p>
+
+<h3>Балқу және кристалдану</h3>
+<p>Балқу — қатты заттың сұйыққа айналуы. Осы кезде молекулааралық байланыстар үзіледі.</p>
+<div class="formula-display">Q = mλ</div>
+<p>Мұнда: Q — балқу жылуы (Дж), m — масса (кг), λ — меншікті балқу жылуы (Дж/кг).</p>
+<p>Мұздың меншікті балқу жылуы: λ = 334 000 Дж/кг = 334 кДж/кг.</p>
+
+<h3>Буланд және конденсация</h3>
+<p>Буланд — сұйықтың газ күйіне айналуы. Конденсация — кері процесс.</p>
+<div class="formula-display">Q = mL</div>
+<p>Судың меншікті булану жылуы: L = 2 260 000 Дж/кг = 2260 кДж/кг.</p>
+
+<h3>Ван дер Ваальс теңдеуі</h3>
+<p>Нақты газдар үшін (молекулаалардың өзара тартылысын және өлшемін есепке ала отырып):</p>
+<div class="formula-display">(p + a/V²)(V − b) = RT</div>
+<p>Мұнда: a — молекулааралық тартылысты ескеретін тұрақты, b — молекулалардың меншікті көлемі.</p>`,
+
+    ru:`<h3>Состояния вещества</h3>
+<p>Вещество существует в трёх фазах: твёрдой, жидкой, газообразной. В каждой фазе молекулы расположены и движутся по-разному.</p>
+<p>В твёрдых телах молекулы расположены плотно и только колеблются. В жидкостях — свободно движутся, сохраняя целостность. В газах — полностью свободны.</p>
+
+<h3>Плавление и кристаллизация</h3>
+<p>Плавление — переход твёрдого тела в жидкость. При этом разрываются межмолекулярные связи.</p>
+<div class="formula-display">Q = mλ</div>
+<p>Здесь: Q — теплота плавления (Дж), m — масса (кг), λ — удельная теплота плавления (Дж/кг).</p>
+<p>Удельная теплота плавления льда: λ = 334 000 Дж/кг = 334 кДж/кг.</p>
+
+<h3>Испарение и конденсация</h3>
+<p>Испарение — переход жидкости в газ. Конденсация — обратный процесс.</p>
+<div class="formula-display">Q = mL</div>
+<p>Удельная теплота испарения воды: L = 2 260 000 Дж/кг = 2260 кДж/кг.</p>
+
+<h3>Уравнение Ван-дер-Ваальса</h3>
+<p>Для реальных газов (с учётом взаимодействия молекул и их размеров):</p>
+<div class="formula-display">(p + a/V²)(V − b) = RT</div>
+<p>Здесь: a — постоянная, учитывающая притяжение молекул, b — собственный объём молекул.</p>`
+  }
+}
+];
+
+// =========================================================
+// STATE
+// =========================================================
+let lang = 'kz';
+let modalLang = 'kz';
+let curIdx = null;
+let isPlaying = false;
+let animId = null;
+let elapsed = 0;
+let startTime = null;
+let scriptIdx = 0;
+let tick = 0;
+let ps = [];
+const TOTAL = 90;
+const completed = new Set();
+
+// =========================================================
+// CURSOR
+// =========================================================
+const cur = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+document.addEventListener('mouseenter', e => {
+  if(e.target.closest('button, .lec-card, .wbtn, .vc-btn')) cur.classList.add('big');
+  else cur.classList.remove('big');
+}, true);
+
+// =========================================================
+// HERO BG
+// =========================================================
+(function(){
+  const c = document.getElementById('heroBg');
+  const ctx = c.getContext('2d');
+  let aps = [];
+  function resize(){ c.width=window.innerWidth; c.height=window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  for(let i=0;i<80;i++) aps.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    r:Math.random()*3+1,
+    vx:(Math.random()-.5)*1.2, vy:(Math.random()-.5)*1.2,
+    hue:Math.random()*60+180
+  });
+  function frame(){
+    ctx.clearRect(0,0,c.width,c.height);
+    aps.forEach(p=>{
+      aps.forEach(p2=>{
+        const dx=p.x-p2.x,dy=p.y-p2.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120&&d>0){
+          ctx.beginPath();
+          ctx.strokeStyle=`hsla(${p.hue},80%,60%,${(1-d/120)*.15})`;
+          ctx.lineWidth=.6; ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+        }
+      });
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+      g.addColorStop(0,`hsla(${p.hue},80%,65%,.7)`);
+      g.addColorStop(1,`hsla(${p.hue},80%,65%,0)`);
+      ctx.beginPath(); ctx.fillStyle=g;
+      ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2); ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>c.width) p.vx*=-1;
+      if(p.y<0||p.y>c.height) p.vy*=-1;
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// =========================================================
+// LANG
+// =========================================================
+const I18N = {
+  heroEyebrow:{kz:"МОЛЕКУЛАЛЫҚ ФИЗИКА · 9 СЫНЫП", ru:"МОЛЕКУЛЯРНАЯ ФИЗИКА · 9 КЛАСС"},
+  heroLine1:{kz:"МОЛЕКУЛАЛАР", ru:"МИРЕ МОЛЕКУЛ"},
+  heroLine2:{kz:"СЫРЫН АШ", ru:"РАЗБЕРИСЬ"},
+  heroSub:{kz:"Ұлы ғалымдар сізге молекулалық физиканы анимациямен, дыбыспен, екі тілде түсіндіреді. ЕҢ КҮШТІ оқу тәжірибесі.", ru:"Великие учёные объясняют вам молекулярную физику с анимацией, звуком, на двух языках. САМЫЙ МОЩНЫЙ опыт обучения."},
+  hs1:{kz:"ЛЕКЦИЯ", ru:"ЛЕКЦИЯ"},
+  hs2:{kz:"ТІЛ", ru:"ЯЗЫК"},
+  hs3:{kz:"ҒАЛЫМ", ru:"УЧЁНЫЙ"},
+  hs4:{kz:"БІЛІМ", ru:"ЗНАНИЯ"},
+  scrollTxt:{kz:"ЛЕКЦИЯЛАРДЫ КӨР", ru:"СМОТРЕТЬ ЛЕКЦИИ"},
+  secLabel:{kz:"ЛЕКЦИЯЛАР", ru:"ЛЕКЦИИ"},
+  secTitle:{kz:"5 Тақырып — 5 Ғалым", ru:"5 Тем — 5 Учёных"},
+  progLabel:{kz:"ПРОГРЕСС", ru:"ПРОГРЕСС"},
+  progTitle:{kz:"Сіздің жетістіктеріңіз", ru:"Ваши достижения"},
+  footerTxt:{kz:"© 2024 · ЖИ Сабағы жобасы · Барлық құқықтар қорғалған", ru:"© 2024 · Проект ЖИ Сабагы · Все права защищены"},
+  done:{kz:"АЯҚТАЛДЫ", ru:"ПРОЙДЕНО"},
+  pending:{kz:"ӨТІЛМЕДІ", ru:"НЕ ПРОЙДЕНО"},
+  wQ:{kz:"Лекцияны көріп біттіңіз бе?", ru:"Вы досмотрели лекцию?"},
+  wSub:{kz:"Жауабыңызды белгілеңіз", ru:"Отметьте ваш ответ"},
+  wYes:{kz:"✓ Ия, біттім", ru:"✓ Да, посмотрел"},
+  wNo:{kz:"✕ Жоқ, қайта", ru:"✕ Нет, пересмотреть"},
+  subInit:{kz:"▶ Ойнатуды басыңыз...", ru:"▶ Нажмите воспроизведение..."},
+  done2:{kz:"✅ Лекция аяқталды! Рахмет!", ru:"✅ Лекция завершена! Спасибо!"},
+  readTitle:{kz:"📖 Толық лекция мәтіні", ru:"📖 Полный текст лекции"},
+  completedMsg:{kz:"🎉 Лекция сәтті аяқталды!", ru:"🎉 Лекция успешно завершена!"},
+};
+
+function setGlobalLang(l){
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn.${l}`).classList.add('active');
+  document.querySelectorAll('[id]').forEach(el=>{
+    if(I18N[el.id]) el.textContent = I18N[el.id][l];
+  });
+  renderCards();
+  renderProgress();
+}
+
+// =========================================================
+// PARTICLE
+// =========================================================
+function makePs(W,H,n){ const a=[];
+  for(let i=0;i<n;i++) a.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*4+1.5,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2,hue:Math.random()*60+180});
+  return a; }
+
+function drawPs(ctx,ps,W,H,c1,c2){
+  ps.forEach(p=>{
+    ps.forEach(p2=>{ const dx=p.x-p2.x,dy=p.y-p2.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<90&&d>0){ ctx.beginPath(); ctx.strokeStyle=c1+(Math.floor((1-d/90)*70)).toString(16).padStart(2,'0');
+        ctx.lineWidth=.5; ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+    });
+    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.5);
+    g.addColorStop(0,c2); g.addColorStop(1,c1+'00');
+    ctx.beginPath(); ctx.fillStyle=g; ctx.arc(p.x,p.y,p.r*2.5,0,Math.PI*2); ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+  });
+}
+
+// =========================================================
+// SCIENTIST FACE
+// =========================================================
+function drawSci(ctx,x,y,sc,anim,tick,lec){
+  const bob=anim==='wave'?Math.sin(tick*.15)*7:anim==='shock'?Math.sin(tick*.4)*9:Math.sin(tick*.09)*3;
+  ctx.save(); ctx.translate(x,y+bob); ctx.scale(sc,sc);
+  ctx.shadowColor=lec.c1; ctx.shadowBlur=25;
+
+  // Body
+  const bg=ctx.createLinearGradient(-44,18,44,115);
+  bg.addColorStop(0,lec.c1+'bb'); bg.addColorStop(1,lec.c2+'77');
+  ctx.fillStyle=bg; ctx.beginPath(); ctx.ellipse(0,90,52,56,0,0,Math.PI*2); ctx.fill();
+
+  // Neck
+  ctx.fillStyle='#c8946a'; ctx.fillRect(-10,28,20,24);
+
+  // Head
+  ctx.shadowBlur=0;
+  const hg=ctx.createRadialGradient(-6,-14,4,-4,-10,40);
+  hg.addColorStop(0,'#f0c49a'); hg.addColorStop(1,'#d0885a');
+  ctx.fillStyle=hg; ctx.beginPath(); ctx.ellipse(0,-10,38,42,0,0,Math.PI*2); ctx.fill();
+
+  // Hair
+  ctx.fillStyle=['#2a1a08','#1a1a2a','#3a2505','#2a1a45','#2a1f10'][lec.id-1]||'#2a1a08';
+  ctx.beginPath(); ctx.ellipse(0,-46,38,17,0,Math.PI,Math.PI*2); ctx.fill();
+
+  // Glasses for 3,5
+  if(lec.id===3||lec.id===5){
+    ctx.strokeStyle='#555'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(-13,-10,9,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(13,-10,9,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-4,-10); ctx.lineTo(4,-10); ctx.stroke();
+  }
+
+  // Eyes blink
+  const bl=(Math.floor(tick/100)%10===0)?.1:1;
+  ctx.fillStyle='#1a0a04';
+  ctx.beginPath(); ctx.ellipse(-13,-12,5,5*bl,0,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(13,-12,5,5*bl,0,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.beginPath(); ctx.arc(-11,-14,1.8,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(15,-14,1.8,0,Math.PI*2); ctx.fill();
+
+  // Eyebrows
+  ctx.strokeStyle='#3a2010'; ctx.lineWidth=2.5; ctx.lineCap='round';
+  if(anim==='shock'){ ctx.beginPath(); ctx.moveTo(-20,-25); ctx.lineTo(-7,-22); ctx.stroke(); ctx.beginPath(); ctx.moveTo(20,-25); ctx.lineTo(7,-22); ctx.stroke(); }
+  else { ctx.beginPath(); ctx.moveTo(-20,-22); ctx.lineTo(-7,-24); ctx.stroke(); ctx.beginPath(); ctx.moveTo(20,-22); ctx.lineTo(7,-24); ctx.stroke(); }
+
+  // Mouth
+  const mOpen=anim!=='bye'?Math.abs(Math.sin(tick*.38))*11+3:4;
+  ctx.fillStyle='#4a1010';
+  ctx.beginPath(); ctx.ellipse(0,14,15,mOpen*.55,0,0,Math.PI*2); ctx.fill();
+  if(mOpen>5){ ctx.fillStyle='#fff'; ctx.fillRect(-11,12,22,mOpen*.25); }
+  if(anim==='fun'||anim==='wave'||anim==='bye'){
+    ctx.strokeStyle='#4a1010'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(0,9,14,.1,Math.PI-.1); ctx.stroke();
+  }
+
+  // Arms
+  ctx.strokeStyle=lec.c1+'cc'; ctx.lineWidth=11; ctx.lineCap='round';
+  if(anim==='wave'){ const wa=Math.sin(tick*.22)*45-15;
+    ctx.beginPath(); ctx.moveTo(38,60); ctx.quadraticCurveTo(62,28,58+wa/2,6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-38,60); ctx.lineTo(-55,92); ctx.stroke();
+  } else if(anim==='formula'){
+    ctx.beginPath(); ctx.moveTo(38,60); ctx.lineTo(84,16); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-38,60); ctx.lineTo(-55,92); ctx.stroke();
+  } else if(anim==='shock'){
+    ctx.beginPath(); ctx.moveTo(38,60); ctx.lineTo(72,26); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-38,60); ctx.lineTo(-72,26); ctx.stroke();
+  } else if(anim==='point'){
+    ctx.beginPath(); ctx.moveTo(38,60); ctx.lineTo(75,40); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-38,60); ctx.lineTo(-55,92); ctx.stroke();
+  } else {
+    ctx.beginPath(); ctx.moveTo(38,60); ctx.lineTo(55,92); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-38,60); ctx.lineTo(-55,92); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+// =========================================================
+// SCENE
+// =========================================================
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+function drawScene(ctx,W,H,tk,lec,curScript,prog,mLang){
+  ctx.clearRect(0,0,W,H);
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#020817'); bg.addColorStop(.5,lec.c1+'15'); bg.addColorStop(1,'#020817');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  // grid
+  ctx.strokeStyle='rgba(255,255,255,0.025)'; ctx.lineWidth=1;
+  for(let x2=0;x2<W;x2+=50){ctx.beginPath();ctx.moveTo(x2,0);ctx.lineTo(x2,H);ctx.stroke();}
+  for(let y2=0;y2<H;y2+=50){ctx.beginPath();ctx.moveTo(0,y2);ctx.lineTo(W,y2);ctx.stroke();}
+
+  drawPs(ctx,ps,W,H,lec.c1,lec.c2);
+
+  // Scientist
+  drawSci(ctx,W*.24,H*.6,H/380,curScript?curScript.a:'explain',tk,lec);
+
+  // Right panel
+  const px=W*.46, pw=W*.5, py=H*.04;
+  ctx.fillStyle='rgba(4,8,20,0.82)';
+  rr(ctx,px,py,pw,H*.92,16); ctx.fill();
+  ctx.strokeStyle=lec.c1+'44'; ctx.lineWidth=1.2;
+  rr(ctx,px,py,pw,H*.92,16); ctx.stroke();
+
+  // Panel header
+  const phg=ctx.createLinearGradient(px,py,px+pw,py+H*.14);
+  phg.addColorStop(0,lec.c1+'55'); phg.addColorStop(1,lec.c2+'33');
+  ctx.fillStyle=phg; rr(ctx,px,py,pw,H*.14,16); ctx.fill();
+
+  ctx.fillStyle='#fff'; ctx.font=`bold ${H*.044}px Syne,sans-serif`;
+  ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillText(lec.title[mLang]||lec.title.kz, px+14, py+H*.07, pw-20);
+  ctx.fillStyle=lec.c2; ctx.font=`${H*.028}px Manrope,sans-serif`;
+  ctx.fillText(`${lec.scientist[mLang]||lec.scientist.kz} · ${lec.year}`, px+14, py+H*.115, pw-20);
+
+  // Formula
+  const fby=py+H*.16;
+  ctx.fillStyle='rgba(0,0,0,.55)'; rr(ctx,px+10,fby,pw-20,H*.1,10); ctx.fill();
+  ctx.strokeStyle=lec.c1+'66'; ctx.lineWidth=1; rr(ctx,px+10,fby,pw-20,H*.1,10); ctx.stroke();
+  ctx.fillStyle='#f59e0b'; ctx.font=`bold ${H*.038}px 'Space Mono',monospace`;
+  ctx.textAlign='center'; ctx.fillText(lec.formula, px+pw/2, fby+H*.058, pw-30);
+
+  // Facts
+  const facts=lec.facts;
+  const fgx=px+10, fgy=py+H*.28, fw=(pw-30)/2, fh=H*.13;
+  facts.slice(0,4).forEach((f,i)=>{
+    const fx=fgx+(i%2)*(fw+10), fy=fgy+Math.floor(i/2)*(fh+8);
+    ctx.fillStyle='rgba(6,182,212,.05)'; rr(ctx,fx,fy,fw,fh,9); ctx.fill();
+    ctx.strokeStyle='rgba(6,182,212,.18)'; ctx.lineWidth=.8; rr(ctx,fx,fy,fw,fh,9); ctx.stroke();
+    ctx.font=`${H*.04}px serif`; ctx.textAlign='center'; ctx.fillStyle='#fff';
+    ctx.fillText(f.icon, fx+fw/2, fy+fh*.33);
+    ctx.font=`bold ${H*.026}px Manrope,sans-serif`; ctx.fillStyle=lec.c2;
+    ctx.fillText(f.val, fx+fw/2, fy+fh*.62, fw-8);
+    ctx.font=`${H*.02}px Manrope,sans-serif`; ctx.fillStyle='rgba(255,255,255,.45)';
+    const lbl=f.lbl[mLang]||f.lbl.kz;
+    ctx.fillText(lbl, fx+fw/2, fy+fh*.84, fw-8);
+  });
+
+  // Fun fact strip
+  const ffY=py+H*.59;
+  const ffGrad=ctx.createLinearGradient(px+10,ffY,px+pw-10,ffY+H*.12);
+  ffGrad.addColorStop(0,'rgba(245,158,11,.08)'); ffGrad.addColorStop(1,'rgba(239,68,68,.05)');
+  ctx.fillStyle=ffGrad; rr(ctx,px+10,ffY,pw-20,H*.12,10); ctx.fill();
+  ctx.strokeStyle='rgba(245,158,11,.25)'; ctx.lineWidth=.8; rr(ctx,px+10,ffY,pw-20,H*.12,10); ctx.stroke();
+  ctx.fillStyle='#fcd34d'; ctx.font=`${H*.024}px Manrope,sans-serif`; ctx.textAlign='left';
+  ctx.fillText('💡', px+18, ffY+H*.042);
+  ctx.font=`${H*.022}px Manrope,sans-serif`; ctx.fillStyle='rgba(252,211,77,.85)';
+  const ff=(lec.funfact[mLang]||lec.funfact.kz).substring(0,70)+'...';
+  ctx.fillText(ff, px+38, ffY+H*.042, pw-55);
+  ctx.fillStyle='rgba(252,211,77,.6)'; ctx.font=`${H*.019}px Manrope,sans-serif`;
+  ctx.fillText((lec.funfact[mLang]||lec.funfact.kz).substring(70,130)+'...', px+18, ffY+H*.074, pw-30);
+
+  // Progress dots
+  for(let d=0;d<5;d++){
+    ctx.beginPath();
+    ctx.fillStyle=prog>(d/5)?lec.c2:'rgba(255,255,255,.12)';
+    ctx.arc(px+pw/2-40+d*20, py+H*.88, 4, 0, Math.PI*2); ctx.fill();
+  }
+
+  // Lec badge
+  const langClr=mLang==='kz'?'#00e5a0':'#ff6b35';
+  ctx.fillStyle=langClr; rr(ctx,8,8,W*.12,H*.07,8); ctx.fill();
+  ctx.fillStyle='#000'; ctx.font=`bold ${H*.034}px Syne,sans-serif`;
+  ctx.textAlign='center'; ctx.fillText(`№${lec.id}`, 8+W*.06, 8+H*.044);
+
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+}
+
+// =========================================================
+// THUMBNAIL
+// =========================================================
+function drawThumb(canvasId,lec){
+  const c=document.getElementById(canvasId);
+  if(!c)return;
+  c.width=c.offsetWidth||380; c.height=210;
+  const ctx=c.getContext('2d');
+  const tps=makePs(c.width,210,22);
+  let tk=0;
+  function fr(){
+    ctx.clearRect(0,0,c.width,210);
+    const bg=ctx.createLinearGradient(0,0,c.width,210);
+    bg.addColorStop(0,'#020817'); bg.addColorStop(.5,lec.c1+'22'); bg.addColorStop(1,'#020817');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,c.width,210);
+    drawPs(ctx,tps,c.width,210,lec.c1,lec.c2);
+    drawSci(ctx,c.width*.25,150,.58,'explain',tk,lec);
+    ctx.fillStyle='rgba(4,8,20,0.82)';
+    rr(ctx,c.width*.44,12,c.width*.52,186,12); ctx.fill();
+    ctx.strokeStyle=lec.c1+'44'; ctx.lineWidth=1; rr(ctx,c.width*.44,12,c.width*.52,186,12); ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font=`bold 14px Syne,sans-serif`; ctx.textAlign='center';
+    const t=lec.title[lang]||lec.title.kz;
+    const words=t.split(' '); let line=''; let lineY=60;
+    words.forEach(w=>{
+      const test=line?line+' '+w:w;
+      if(ctx.measureText(test).width>c.width*.44){ ctx.fillText(line,c.width*.7,lineY,c.width*.46); line=w; lineY+=18; }
+      else line=test;
+    });
+    ctx.fillText(line,c.width*.7,lineY,c.width*.46);
+    ctx.fillStyle=lec.c2; ctx.font=`11px Manrope,sans-serif`;
+    ctx.fillText(lec.scientist[lang]||lec.scientist.kz,c.width*.7,lineY+20,c.width*.46);
+    ctx.fillStyle='rgba(255,255,255,.4)'; ctx.font=`10px Space Mono,monospace`;
+    ctx.fillText(lec.year+' ЖЫЛ',c.width*.7,lineY+36);
+    tk++; requestAnimationFrame(fr);
+  }
+  fr();
+}
+
+// =========================================================
+// RENDER CARDS
+// =========================================================
+function renderCards(){
+  const g=document.getElementById('lecturesGrid');
+  g.innerHTML='';
+  LECS.forEach((lec,i)=>{
+    const d=document.createElement('div');
+    d.className='lec-card'; d.onclick=()=>openLecture(i);
+    const done=completed.has(i);
+    const tags=(lec.tags[lang]||lec.tags.kz).map(t=>`<span class="ctag" style="background:${lec.c1}18;border:1px solid ${lec.c1}33;color:${lec.c1}">${t}</span>`).join('');
+    d.innerHTML=`
+      <div class="card-thumb" style="background:linear-gradient(135deg,${lec.c1}15,${lec.c2}0a)">
+        <canvas id="th${i}"></canvas>
+        <div class="card-num">${String(lec.id).padStart(2,'0')}</div>
+        <div class="card-play"><div class="play-ring">▶</div></div>
+        <div class="card-status" style="color:${done?'#00e5a0':'#64748b'}">${done?(lang==='kz'?'✓ АЯҚТАЛДЫ':'✓ ПРОЙДЕНО'):'▶ '+(lang==='kz'?'ОҚЫТУ':'СМОТРЕТЬ')}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-scientist">
+          <div class="sci-bubble" style="background:linear-gradient(135deg,${lec.c1}33,${lec.c2}22)">${lec.emoji}</div>
+          <div>
+            <div class="sci-info-name">${lec.scientist[lang]||lec.scientist.kz}</div>
+            <div class="sci-info-disc">${lec.discovery[lang]||lec.discovery.kz} · ${lec.year}</div>
+          </div>
+        </div>
+        <div class="card-title">${lec.title[lang]||lec.title.kz}</div>
+        <div class="card-desc">${lec.desc[lang]||lec.desc.kz}</div>
+        <div class="card-tags">${tags}</div>
+      </div>`;
+    g.appendChild(d);
+    setTimeout(()=>drawThumb('th'+i,lec),60+i*25);
+  });
+}
+
+// =========================================================
+// PROGRESS
+// =========================================================
+function renderProgress(){
+  const g=document.getElementById('progGrid');
+  g.innerHTML='';
+  LECS.forEach((lec,i)=>{
+    const done=completed.has(i);
+    const d=document.createElement('div');
+    d.className=`prog-item${done?' done':''}`;
+    d.innerHTML=`<div class="prog-icon">${lec.emoji}</div><div class="prog-name">${lec.title[lang]||lec.title.kz}</div><div class="prog-status">${done?I18N.done[lang]:I18N.pending[lang]}</div>`;
+    g.appendChild(d);
+  });
+}
+
+// =========================================================
+// MODAL
+// =========================================================
+function openLecture(idx){
+  curIdx=idx;
+  modalLang=lang;
+  updateModalLangBtns();
+  const lec=LECS[idx];
+  document.getElementById('mLecNum').textContent=`ЛЕКЦИЯ ${String(lec.id).padStart(2,'0')}`;
+  document.getElementById('overlay').classList.add('on');
+  document.body.style.overflow='hidden';
+  document.getElementById('watchedSec').classList.remove('show');
+  document.getElementById('lecTextSec').classList.remove('show');
+  document.getElementById('lecTextSec').innerHTML='';
+  updateWatchedTexts();
+  elapsed=0; scriptIdx=0; tick=0; isPlaying=false;
+  document.getElementById('ppBtn').textContent='▶';
+  document.getElementById('ppBtn').classList.remove('on');
+  updateProg(0);
+  updateSubtitle(I18N.subInit[modalLang], false);
+  const c=document.getElementById('vc');
+  c.width=c.offsetWidth||900; c.height=c.offsetHeight||506;
+  ps=makePs(c.width,c.height,55);
+  drawScene(c.getContext('2d'),c.width,c.height,0,lec,null,0,modalLang);
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('on');
+  document.body.style.overflow='';
+  stopAll();
+}
+
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))closeModal();});
+
+function switchModalLang(l){
+  modalLang=l;
+  updateModalLangBtns();
+  const wasPlaying=isPlaying;
+  stopAll();
+  elapsed=0; scriptIdx=0; tick=0; isPlaying=false;
+  document.getElementById('ppBtn').textContent='▶';
+  document.getElementById('ppBtn').classList.remove('on');
+  updateProg(0);
+  updateSubtitle(I18N.subInit[modalLang], false);
+  const c=document.getElementById('vc');
+  drawScene(c.getContext('2d'),c.width,c.height,0,LECS[curIdx],null,0,modalLang);
+  if(wasPlaying) setTimeout(startPlay, 100);
+}
+
+function updateModalLangBtns(){
+  document.querySelectorAll('.mlang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.mlang-btn.${modalLang}`).classList.add('active');
+  const tag=document.getElementById('subLangTag');
+  if(modalLang==='kz'){tag.style.background='var(--kz)';tag.style.color='#000';tag.textContent='ҚАЗ';}
+  else {tag.style.background='var(--ru)';tag.style.color='#fff';tag.textContent='РУС';}
+}
+
+function updateWatchedTexts(){
+  document.getElementById('wQ').textContent=I18N.wQ[lang];
+  document.getElementById('wSub').textContent=I18N.wSub[lang];
+  document.getElementById('wYes').textContent=I18N.wYes[lang];
+  document.getElementById('wNo').textContent=I18N.wNo[lang];
+}
+
+function stopAll(){
+  isPlaying=false;
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  if(window.speechSynthesis) speechSynthesis.cancel();
+}
+
+function togglePlay(){
+  if(isPlaying){ stopAll(); document.getElementById('ppBtn').textContent='▶'; document.getElementById('ppBtn').classList.remove('on'); }
+  else startPlay();
+}
+
+function startPlay(){
+  isPlaying=true;
+  document.getElementById('ppBtn').textContent='⏸';
+  document.getElementById('ppBtn').classList.add('on');
+  startTime=performance.now()-elapsed*1000;
+  scriptIdx=findSI(elapsed);
+  speakCur();
+  animLoop();
+}
+
+function findSI(sec){
+  const sc=LECS[curIdx].script[modalLang]||LECS[curIdx].script.kz;
+  let idx=0;
+  for(let i=0;i<sc.length;i++){if(sc[i].t<=sec)idx=i;}
+  return idx;
+}
+
+function speakCur(){
+  if(curIdx===null) return;
+  const sc=LECS[curIdx].script[modalLang]||LECS[curIdx].script.kz;
+  if(scriptIdx>=sc.length) return;
+  if(speechSynthesis) speechSynthesis.cancel();
+  const entry=sc[scriptIdx];
+  updateSubtitle(entry.s, true);
+  const u=new SpeechSynthesisUtterance(entry.s);
+  u.lang=modalLang==='kz'?'ru-RU':'ru-RU';
+  u.rate=0.9; u.pitch=1.08;
+  u.volume=parseFloat(document.getElementById('volSl').value);
+  u.onend=()=>{
+    scriptIdx++;
+    if(isPlaying&&scriptIdx<sc.length){
+      const ne=sc[scriptIdx];
+      const wait=Math.max(0,(ne.t-elapsed)*1000);
+      if(wait>300) setTimeout(()=>{if(isPlaying)speakCur();},wait);
+      else speakCur();
+    }
+  };
+  speechSynthesis.speak(u);
+}
+
+function animLoop(){
+  if(!isPlaying)return;
+  elapsed=(performance.now()-startTime)/1000;
+  if(elapsed>=TOTAL){
+    elapsed=TOTAL; isPlaying=false;
+    if(speechSynthesis)speechSynthesis.cancel();
+    document.getElementById('ppBtn').textContent='▶';
+    document.getElementById('ppBtn').classList.remove('on');
+    updateSubtitle(I18N.done2[modalLang], false);
+    updateProg(1);
+    setTimeout(()=>document.getElementById('watchedSec').classList.add('show'),600);
+    return;
+  }
+  updateProg(elapsed/TOTAL);
+  tick++;
+  const c=document.getElementById('vc');
+  const sc=LECS[curIdx].script[modalLang]||LECS[curIdx].script.kz;
+  const si=findSI(elapsed);
+  drawScene(c.getContext('2d'),c.width,c.height,tick,LECS[curIdx],sc[si],elapsed/TOTAL,modalLang);
+  animId=requestAnimationFrame(animLoop);
+}
+
+function restartVid(){
+  stopAll(); elapsed=0; scriptIdx=0; tick=0;
+  document.getElementById('ppBtn').textContent='▶'; document.getElementById('ppBtn').classList.remove('on');
+  document.getElementById('watchedSec').classList.remove('show');
+  document.getElementById('lecTextSec').classList.remove('show');
+  document.getElementById('lecTextSec').innerHTML='';
+  updateProg(0);
+  updateSubtitle(I18N.subInit[modalLang], false);
+  const c=document.getElementById('vc');
+  drawScene(c.getContext('2d'),c.width,c.height,0,LECS[curIdx],null,0,modalLang);
+}
+
+function seekVid(e){
+  const bar=document.getElementById('vbar');
+  const pct=(e.clientX-bar.getBoundingClientRect().left)/bar.offsetWidth;
+  elapsed=Math.max(0,Math.min(1,pct))*TOTAL;
+  if(isPlaying){startTime=performance.now()-elapsed*1000; scriptIdx=findSI(elapsed); speakCur();}
+  updateProg(elapsed/TOTAL);
+}
+
+function setVol(v){
+  if(speechSynthesis&&isPlaying){speechSynthesis.cancel(); speakCur();}
+}
+
+function updateProg(p){
+  document.getElementById('vfill').style.width=(p*100)+'%';
+  const cur2=Math.floor(p*TOTAL),tot=TOTAL;
+  document.getElementById('vtime').textContent=`${Math.floor(cur2/60)}:${(cur2%60).toString().padStart(2,'0')} / ${Math.floor(tot/60)}:${(tot%60).toString().padStart(2,'0')}`;
+}
+
+function updateSubtitle(txt, talking){
+  const sp=document.getElementById('subPanel');
+  sp.childNodes[1] ? sp.childNodes[1].textContent=' '+txt : (sp.textContent=(sp.querySelector('.sub-lang-tag')?'':'')+txt);
+  // safe update
+  const tag=sp.querySelector('.sub-lang-tag');
+  while(sp.firstChild!==tag) sp.firstChild.remove&&sp.removeChild(sp.firstChild);
+  const tn=document.createTextNode(' '+txt);
+  sp.appendChild(tn);
+  if(talking) sp.style.borderColor='rgba(0,229,160,.3)';
+  else sp.style.borderColor='rgba(255,255,255,.06)';
+}
+
+// =========================================================
+// WATCHED
+// =========================================================
+function answerWatched(yes){
+  if(yes){
+    completed.add(curIdx);
+    showFullText();
+    renderCards();
+    renderProgress();
+  } else {
+    restartVid();
+    setTimeout(startPlay,200);
+  }
+}
+
+function showFullText(){
+  const lec=LECS[curIdx];
+  const sec=document.getElementById('lecTextSec');
+  sec.classList.add('show');
+  document.getElementById('watchedSec').classList.remove('show');
+  const txt=lec.fulltext[modalLang]||lec.fulltext.kz;
+  const funf=lec.funfact[modalLang]||lec.funfact.kz;
+  sec.innerHTML=`
+    <div class="lts-header">
+      <div class="lts-icon">${lec.emoji}</div>
+      <div>
+        <div class="lts-title">${I18N.readTitle[lang]} — ${lec.title[modalLang]||lec.title.kz}</div>
+        <div class="lts-sub">${lec.scientist[modalLang]||lec.scientist.kz} · ${lec.year}</div>
+      </div>
+    </div>
+    <div class="lts-body">${txt}</div>
+    <div class="info-grid">
+      ${lec.facts.map(f=>`<div class="info-card"><div class="ic-icon">${f.icon}</div><div class="ic-val">${f.val}</div><div class="ic-lbl">${f.lbl[modalLang]||f.lbl.kz}</div></div>`).join('')}
+    </div>
+    <div class="fun-box"><b>💡 ${lang==='kz'?'Қызықты факт':'Интересный факт'}:</b> ${funf}</div>
+    <div class="complete-badge">✅ ${I18N.completedMsg[lang]}</div>
+  `;
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// =========================================================
+// INIT
+// =========================================================
+renderCards();
+renderProgress();
+setGlobalLang('kz');
+</script>
+</body>
+</html>
